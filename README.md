@@ -8,6 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -25,72 +26,74 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      margin-bottom:20px;
+      margin-bottom:25px;
       flex-wrap:wrap;
       gap:10px;
     }
 
-    .upload-box{
-      display:flex;
-      gap:10px;
-      align-items:center;
+    .top-bar h1{
+      font-size:32px;
     }
 
     input[type=file]{
+      background:#101522;
       color:white;
+      border:1px solid #2c3447;
+      padding:12px;
+      border-radius:10px;
     }
 
     .stats{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
       gap:15px;
-      margin-bottom:25px;
+      margin-bottom:30px;
     }
 
-    .card{
+    .stat-card{
       background:#0f131d;
       border:1px solid #232a3b;
-      border-radius:14px;
-      padding:20px;
+      border-radius:16px;
+      padding:22px;
     }
 
-    .card h3{
-      color:#8d98b3;
-      font-size:13px;
-      margin-bottom:10px;
+    .stat-card h4{
+      color:#7f8aa3;
+      font-size:12px;
       letter-spacing:1px;
+      margin-bottom:10px;
     }
 
-    .card h1{
-      font-size:40px;
+    .stat-card h1{
+      font-size:42px;
     }
 
     .green{
-      color:#24e36c;
+      color:#27e97c;
     }
 
     .orange{
-      color:#ff8c1a;
+      color:#ff9d1c;
     }
 
     .blue{
-      color:#4c7dff;
+      color:#4f83ff;
     }
 
     .po-card{
-      background:#0d111b;
-      border:1px solid #2c3447;
-      border-radius:18px;
-      padding:25px;
-      margin-bottom:20px;
-    }
-
-    .review{
-      border:1px solid #ff8c1a;
+      background:#08101f;
+      border-radius:20px;
+      padding:30px;
+      margin-bottom:25px;
+      border:1px solid #2d3447;
     }
 
     .clean{
-      border:1px solid #24e36c;
+      border:1px solid #00ff84;
+    }
+
+    .review{
+      border:1px solid #ff9d1c;
     }
 
     .po-header{
@@ -99,72 +102,79 @@
       align-items:center;
       margin-bottom:20px;
       flex-wrap:wrap;
-      gap:10px;
+      gap:15px;
+    }
+
+    .po-title{
+      font-size:42px;
+      font-weight:bold;
     }
 
     .badge{
-      padding:8px 14px;
-      border-radius:8px;
-      font-size:12px;
+      padding:10px 18px;
+      border-radius:10px;
+      font-size:13px;
       font-weight:bold;
       letter-spacing:1px;
     }
 
-    .badge-review{
-      background:#2a1a00;
-      color:#ffb347;
+    .badge-clean{
+      background:#013d20;
+      color:#52ff9c;
     }
 
-    .badge-clean{
-      background:#032e14;
-      color:#4dff9a;
+    .badge-review{
+      background:#332000;
+      color:#ffbf5e;
     }
 
     .warning-box{
-      background:#2c1d00;
-      border:1px solid #6f4700;
-      padding:12px;
-      border-radius:8px;
-      margin-top:15px;
-      color:#ffcc66;
-      font-size:14px;
+      background:#2d2100;
+      border:1px solid #7f5b00;
+      color:#ffd56e;
+      padding:15px;
+      border-radius:10px;
+      margin-top:18px;
+      line-height:1.7;
     }
 
     .values{
-      display:flex;
-      gap:50px;
-      margin-top:20px;
-      flex-wrap:wrap;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:25px;
+      margin-top:30px;
     }
 
-    .value-block h4{
-      color:#7f8aa3;
-      margin-bottom:8px;
-      font-size:12px;
+    .value-box h5{
+      color:#8190af;
+      margin-bottom:10px;
+      font-size:13px;
+      letter-spacing:1px;
     }
 
-    .value-block p{
-      font-size:28px;
+    .value-box p{
+      font-size:24px;
       font-weight:bold;
     }
 
     .buttons{
       display:flex;
-      gap:10px;
-      margin-top:25px;
+      gap:15px;
+      margin-top:35px;
       flex-wrap:wrap;
     }
 
     button{
       border:none;
-      padding:14px 20px;
-      border-radius:10px;
-      cursor:pointer;
+      padding:16px 22px;
+      border-radius:12px;
+      font-size:18px;
       font-weight:bold;
+      cursor:pointer;
     }
 
     .approve{
-      background:#3f7cff;
+      background:#4c83ff;
       color:white;
     }
 
@@ -174,47 +184,48 @@
     }
 
     .refresh{
-      background:#2a2f3a;
+      background:#293142;
       color:white;
     }
 
     .section-title{
-      margin-bottom:20px;
       font-size:28px;
+      margin-bottom:20px;
     }
+
   </style>
 </head>
 
 <body>
 
 <div class="top-bar">
+
   <h1>PO Validation Dashboard</h1>
 
-  <div class="upload-box">
-    <input type="file" id="csvFile" accept=".csv"/>
-  </div>
+  <input type="file" id="csvFile" accept=".csv"/>
+
 </div>
 
 <div class="stats">
 
-  <div class="card">
-    <h3>TOTAL ROWS</h3>
+  <div class="stat-card">
+    <h4>TOTAL ROWS</h4>
     <h1 id="totalRows">0</h1>
   </div>
 
-  <div class="card">
-    <h3>CLEAN</h3>
+  <div class="stat-card">
+    <h4>CLEAN</h4>
     <h1 class="green" id="cleanCount">0</h1>
   </div>
 
-  <div class="card">
-    <h3>NEEDS REVIEW</h3>
+  <div class="stat-card">
+    <h4>NEEDS REVIEW</h4>
     <h1 class="orange" id="reviewCount">0</h1>
   </div>
 
 </div>
 
-<h2 class="section-title">PO Validation Results</h2>
+<h2 class="section-title">Validation Results</h2>
 
 <div id="dashboard"></div>
 
@@ -227,6 +238,7 @@ function handleFile(event){
   const file = event.target.files[0];
 
   Papa.parse(file,{
+
     header:true,
     skipEmptyLines:true,
 
@@ -235,7 +247,9 @@ function handleFile(event){
       generateDashboard(results.data);
 
     }
+
   });
+
 }
 
 function generateDashboard(data){
@@ -258,11 +272,17 @@ function generateDashboard(data){
     const portalGST = Number(row.Portal_Gst || 0);
     const ucGST = Number(row.UC_GST || 0);
 
-    const tpMatch = poTP.toFixed(2) === ucTP.toFixed(2);
-    const mrpMatch = poMRP.toFixed(2) === ucMRP.toFixed(2);
-    const gstMatch = portalGST.toFixed(2) === ucGST.toFixed(2);
+    const tpMatch =
+      poTP.toFixed(2) === ucTP.toFixed(2);
 
-    const isClean = tpMatch && mrpMatch && gstMatch;
+    const mrpMatch =
+      poMRP.toFixed(2) === ucMRP.toFixed(2);
+
+    const gstMatch =
+      portalGST.toFixed(2) === ucGST.toFixed(2);
+
+    const isClean =
+      tpMatch && mrpMatch && gstMatch;
 
     if(isClean){
       cleanCount++;
@@ -270,16 +290,24 @@ function generateDashboard(data){
       reviewCount++;
     }
 
+    const poID =
+      row.PO_ID ||
+      row.PO ||
+      row.PO_NUMBER ||
+      row.NO_PO ||
+      `PO_${index+1}`;
+
     const card = document.createElement('div');
 
-    card.className = `po-card ${isClean ? 'clean' : 'review'}`;
+    card.className =
+      `po-card ${isClean ? 'clean' : 'review'}`;
 
     card.innerHTML = `
 
       <div class="po-header">
 
-        <div>
-          <h2>${row.PO_ID || 'NO_PO'}</h2>
+        <div class="po-title">
+          ${poID}
         </div>
 
         <div class="badge ${isClean ? 'badge-clean' : 'badge-review'}">
@@ -293,7 +321,11 @@ function generateDashboard(data){
         ?
         `
         <div class="warning-box">
-          PO_TP vs UC_TP OR PO_MRP vs UC_MRP OR GST mismatch detected.
+
+          ${!tpMatch ? 'PO_TP mismatch detected.<br>' : ''}
+          ${!mrpMatch ? 'PO_MRP mismatch detected.<br>' : ''}
+          ${!gstMatch ? 'GST mismatch detected.' : ''}
+
         </div>
         `
         :
@@ -302,33 +334,33 @@ function generateDashboard(data){
 
       <div class="values">
 
-        <div class="value-block">
-          <h4>PO TP</h4>
-          <p>₹${poTP}</p>
+        <div class="value-box">
+          <h5>PO TP</h5>
+          <p>₹${poTP.toFixed(2)}</p>
         </div>
 
-        <div class="value-block">
-          <h4>UC TP</h4>
-          <p>₹${ucTP}</p>
+        <div class="value-box">
+          <h5>UC TP</h5>
+          <p>₹${ucTP.toFixed(2)}</p>
         </div>
 
-        <div class="value-block">
-          <h4>PO MRP</h4>
-          <p>₹${poMRP}</p>
+        <div class="value-box">
+          <h5>PO MRP</h5>
+          <p>₹${poMRP.toFixed(2)}</p>
         </div>
 
-        <div class="value-block">
-          <h4>UC MRP</h4>
-          <p>₹${ucMRP}</p>
+        <div class="value-box">
+          <h5>UC MRP</h5>
+          <p>₹${ucMRP.toFixed(2)}</p>
         </div>
 
-        <div class="value-block">
-          <h4>PORTAL GST</h4>
+        <div class="value-box">
+          <h5>PORTAL GST</h5>
           <p>${portalGST}%</p>
         </div>
 
-        <div class="value-block">
-          <h4>UC GST</h4>
+        <div class="value-box">
+          <h5>UC GST</h5>
           <p>${ucGST}%</p>
         </div>
 
@@ -336,16 +368,24 @@ function generateDashboard(data){
 
       <div class="buttons">
 
-        <button class="approve">
-          Approve
-        </button>
-
-        <button class="flag">
-          Flag Platform
-        </button>
+        ${
+          isClean
+          ?
+          `
+          <button class="approve">
+            Approve — Invoice at ₹${ucTP.toFixed(2)}
+          </button>
+          `
+          :
+          `
+          <button class="flag">
+            NEEDS REVIEW
+          </button>
+          `
+        }
 
         <button class="refresh">
-          Refresh
+          TP Refresh
         </button>
 
       </div>
@@ -357,7 +397,9 @@ function generateDashboard(data){
   });
 
   document.getElementById('totalRows').innerText = data.length;
+
   document.getElementById('cleanCount').innerText = cleanCount;
+
   document.getElementById('reviewCount').innerText = reviewCount;
 
 }
