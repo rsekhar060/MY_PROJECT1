@@ -290,12 +290,7 @@ function generateDashboard(data){
       reviewCount++;
     }
 
-    const poID =
-      row.PO_ID ||
-      row.PO ||
-      row.PO_NUMBER ||
-      row.NO_PO ||
-      `PO_${index+1}`;
+    const poID = row["PoNumber"] || `PO_${index + 1}`;
 
     const card = document.createElement('div');
 
